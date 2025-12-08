@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
@@ -23,8 +22,6 @@ func GenerateJWT(id string) (string, error) {
 
 func GetJWTFromHeader(c *gin.Context) string {
 	bearerToken := c.Request.Header.Get("Authorization")
-	// Bearer token
-	fmt.Printf("Authorization Header: %s\n", bearerToken)
 	if len(strings.Split(bearerToken, " ")) == 2 {
 		return strings.Split(bearerToken, " ")[1]
 	}
@@ -63,8 +60,6 @@ func GetIDFromHeader(c *gin.Context) string {
 
 func TokenValid(c *gin.Context) error {
 	tokenString := GetJWTFromHeader(c)
-	// print the token string
-	fmt.Printf("Token String: %s\n", tokenString)
 	secret := viper.GetString("API_SECRET")
 	token, err := jwt.ParseWithClaims(tokenString, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil

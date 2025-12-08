@@ -40,6 +40,9 @@ func (s *Server) Router() *gin.Engine {
 
 // setupRoutes sets up the API routes for the server.
 func (s *Server) setupRoutes() {
+	// Configure CORS middleware
+	s.router.Use(CORSMiddleware())
+
 	// Define your routes here
 	api := s.router.Group("/api")
 	{
@@ -54,10 +57,11 @@ func (s *Server) setupRoutes() {
 	{
 		// Add Auth Middleware to protect quote routes
 		quotesG.Use(AuthMiddleware())
+		// Create Quote
+		quotesG.POST("", s.createQuote)
 		// Define quote routes here
 		quotesG.GET("/all", s.getAllQuotes)
-		// Create Quote
-		quotesG.POST("/", s.createQuote)
+
 		// Update Quote
 		quotesG.POST("/:id", s.updateQuote)
 		// Delete Quote
