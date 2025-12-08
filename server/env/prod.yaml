@@ -1,0 +1,11 @@
+# Here is an example of YAML
+
+PORT: 8080
+
+DATABASE:
+  HOST: localhost
+  PORT: 5432
+  USER: phani
+  PASSWORD: Samaritan314#!$
+  DB: prod
+
