@@ -19,6 +19,40 @@ func ShellExec(command string) error {
 }
 
 func main() {
+	// Build UI
+	originalDir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("originalDir cwd :- %v\n", originalDir)
+
+	err = os.Chdir(originalDir + "/ui")
+	if err != nil {
+		panic(err)
+	}
+
+	// execute the UI build
+	uiCmds := map[string]string{
+		"build-ui":             fmt.Sprintf("bun run build"),
+		"copy-build-to-server": fmt.Sprintf("cp -r dist/ ../server/dist"),
+	}
+
+	for taskName, task := range uiCmds {
+		err := ShellExec(task)
+		if err != nil {
+			fmt.Printf("Error executing task '%s': %v\n", taskName, err)
+			return
+		}
+
+		fmt.Printf("\nExecuted task: %s ✅\n", taskName)
+	}
+
+	err = os.Chdir(originalDir)
+	if err != nil {
+		panic(err)
+	}
+
 	imageName := "quotes-app-server"
 
 	// This is a placeholder for the main function.

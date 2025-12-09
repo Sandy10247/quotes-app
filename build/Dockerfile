@@ -6,10 +6,9 @@ WORKDIR /app
 
 ENV HOSTNAME=0.0.0.0
 
-COPY go.mod ./`
-COPY go.sum ./`
-
 COPY . .
+
+WORKDIR /app/server
 
 RUN go mod download
 
@@ -21,8 +20,12 @@ FROM gcr.io/distroless/base-debian11 AS build-release-stage
 WORKDIR /
 
 # Copy YAML configuration files
-COPY env/* env/
+COPY --from=build-stage /app/server/env/* env/
 
+# Copy UI "dist" folder
+COPY --from=build-stage /app/server/dist/* dist/ 
+
+# Copy Built Server Binary
 COPY --from=build-stage ./quotes-server /quotes-server
 
 EXPOSE 8080

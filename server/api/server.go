@@ -42,7 +42,7 @@ func (s *Server) Router() *gin.Engine {
 // setupRoutes sets up the API routes for the server.
 func (s *Server) setupRoutes() {
 	// Serve frontend static files
-	s.router.Use(static.Serve("/", static.LocalFile("./../ui/dist", true)))
+	s.router.Use(static.Serve("/", static.LocalFile("dist", true)))
 
 	// Define your routes here
 	api := s.router.Group("/api")
