@@ -19,10 +19,10 @@ func main() {
 	// Application entry point
 
 	var config conf.Config
-	env := os.Getenv("ENVIRONMENT")
+	env := os.Getenv("ENV")
 
-	if env == "PRODUCTION" {
-		config = conf.LoadConfig("prod", "./env/")
+	if env != "" {
+		config = conf.LoadConfig(env, "./env/")
 	} else {
 		config = conf.LoadConfig("test", "./env/")
 	}

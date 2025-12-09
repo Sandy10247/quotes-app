@@ -46,7 +46,6 @@ func (r *userRegisterReq) bind(c *gin.Context, p *db.CreateUserParams) error {
 	if err != nil {
 		return err
 	}
-	p.ID = generateID()
 	p.Username = r.User.Username
 	p.Email = r.User.Email
 	p.Password = string(hashed)

@@ -18,6 +18,7 @@ type Config struct {
 		Password string
 		DB       string
 		User     string
+		SSLMode  string
 	}
 	Debug bool
 
@@ -35,7 +36,7 @@ func (c *Config) DSN() string {
 		" user=" + c.Database.User +
 		" password=" + c.Database.Password +
 		" dbname=" + c.Database.DB +
-		" sslmode=disable"
+		" sslmode=" + c.Database.SSLMode
 }
 
 // LoadConfig creates a new Config instance with default values.

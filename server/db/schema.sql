@@ -7,10 +7,7 @@ CREATE TABLE IF NOT EXISTS users(
   email         VARCHAR(100) NOT NULL UNIQUE,
   password      VARCHAR(100) NOT NULL,
   created_at    timestamptz NOT NULL default now(),
-  updated_at    timestamptz NOT NULL default now(),
-
--- Constraints
-  PRIMARY KEY (id)
+  updated_at    timestamptz NOT NULL default now()
 );
 
 

@@ -14,6 +14,7 @@ type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (*User, error)
 	DeleteQuote(ctx context.Context, id int32) (*Quote, error)
 	GetAllQuotes(ctx context.Context) ([]*Quote, error)
+	GetAllQuotesByUser(ctx context.Context, userID int32) ([]*Quote, error)
 	GetQuoteByID(ctx context.Context, id int32) (*Quote, error)
 	GetQuotesByUserID(ctx context.Context, userID int32) (*Quote, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)

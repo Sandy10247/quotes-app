@@ -27,7 +27,7 @@ function Dashboard() {
         try {
             const response = await util.axiosInstance.get('/quotes/all');
             const { quotes } = response.data;
-            setQuotes(quotes);
+            setQuotes(quotes || []);
         } catch (err) {
             setError('Failed to fetch quotes');
             console.error(err);
@@ -37,9 +37,14 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        if (token == "EMPTY") { navigate('/login') };
+        if (token == "EMPTY") { navigate('/login'); return; };
         fetchQuotes()
     }, [token]);
+
+    const handleLogout = () => {
+        logout()
+        navigate("/login")
+    }
 
 
     const handleAddSubmit = async (e: React.FormEvent) => {
@@ -123,7 +128,7 @@ function Dashboard() {
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-4xl font-bold text-gray-900">Quote Dashboard</h1>
                     <button
-                        onClick={logout}
+                        onClick={handleLogout}
                         className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                     >
                         Logout

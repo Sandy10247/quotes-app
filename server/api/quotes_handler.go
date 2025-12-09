@@ -15,9 +15,15 @@ func (s *Server) getAllQuotes(c *gin.Context) {
 
 	id := GetIDFromHeader(c)
 
+	userIdInt, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
 	// print the user id
 	println("User ID from token:", id)
-	quotes, err := s.store.GetAllQuotes(c.Request.Context())
+	quotes, err := s.store.GetAllQuotesByUser(c.Request.Context(), int32(userIdInt))
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to retrieve quotes"})
 		return

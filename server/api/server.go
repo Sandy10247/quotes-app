@@ -6,6 +6,7 @@ import (
 	"quotes-app/config"
 	db "quotes-app/db/sqlc"
 
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -40,12 +41,14 @@ func (s *Server) Router() *gin.Engine {
 
 // setupRoutes sets up the API routes for the server.
 func (s *Server) setupRoutes() {
-	// Configure CORS middleware
-	s.router.Use(CORSMiddleware())
+	// Serve frontend static files
+	s.router.Use(static.Serve("/", static.LocalFile("./../ui/dist", true)))
 
 	// Define your routes here
 	api := s.router.Group("/api")
 	{
+		// Configure CORS middleware
+		api.Use(CORSMiddleware())
 		// Add Api routes here
 		api.POST("/users", s.RegisterUser)
 		api.POST("/users/login", s.LoginUser)

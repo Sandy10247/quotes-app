@@ -5,6 +5,9 @@ SELECT * FROM quotes WHERE id = $1;
 -- name: GetAllQuotes :many
 SELECT * FROM quotes ORDER BY created_at DESC;
 
+-- name: GetAllQuotesByUser :many
+SELECT * FROM quotes WHERE user_id = $1 ORDER BY created_at DESC;
+
 -- name: CreateQuote :one
 INSERT INTO quotes (user_id, content, author) VALUES ($1, $2, $3) RETURNING *;
 

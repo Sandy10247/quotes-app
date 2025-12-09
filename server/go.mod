@@ -3,6 +3,7 @@ module quotes-app
 go 1.25.4
 
 require (
+	github.com/gin-gonic/contrib v0.0.0-20250521004450-2b1292699c15
 	github.com/gin-gonic/gin v1.11.0
 	github.com/golang-jwt/jwt/v5 v5.0.0-rc.1
 	github.com/jackc/pgconn v1.8.0

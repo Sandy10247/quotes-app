@@ -19,11 +19,19 @@ function AuthForm() {
             return;
         }
 
-        util.axiosInstance.post('/users/login', {
-            user: {
-                email,
-                password,
-            }
+        const authUrl = isLogin ? "/users/login" : "/users"
+
+        const user = !isLogin ? {
+            email,
+            password,
+            username: email
+        } : {
+            email,
+            password,
+        };
+
+        util.axiosInstance.post(authUrl, {
+            user
         }).then(response => {
             const { user: { token } } = response.data;
             login(token);

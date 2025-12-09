@@ -90,6 +90,36 @@ func (q *Queries) GetAllQuotes(ctx context.Context) ([]*Quote, error) {
 	return items, nil
 }
 
+const getAllQuotesByUser = `-- name: GetAllQuotesByUser :many
+SELECT id, user_id, content, author, created_at FROM quotes WHERE user_id = $1 ORDER BY created_at DESC
+`
+
+func (q *Queries) GetAllQuotesByUser(ctx context.Context, userID int32) ([]*Quote, error) {
+	rows, err := q.db.Query(ctx, getAllQuotesByUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*Quote
+	for rows.Next() {
+		var i Quote
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Content,
+			&i.Author,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getQuoteByID = `-- name: GetQuoteByID :one
 SELECT id, user_id, content, author, created_at FROM quotes WHERE id = $1
 `

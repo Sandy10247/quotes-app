@@ -3,12 +3,13 @@
 PORT: 8080
 
 DATABASE:
-  HOST: localhost
+  HOST: 34.93.109.204
   PORT: 5432
-  USER: phani
+  USER: quotes-app
   PASSWORD: Samaritan314#!$
   DB: test
-  SSLMode: disable
+  SSLMode: require
+  
 
 ServerAddress: :8080
 API_SECRET: nextEraOfWesternCivilization2442

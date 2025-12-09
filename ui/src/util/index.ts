@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an axios instance with default configuration
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: window.location.href + 'api',
     timeout: 1000,
 });
 

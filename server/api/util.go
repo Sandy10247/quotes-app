@@ -9,12 +9,6 @@ import (
 	"github.com/rs/xid"
 )
 
-func createUniqueSlug(title string) string {
-	slug := createSlug(title)
-	randomString := generateRandomString(12)
-	return slug + "-" + randomString
-}
-
 func createSlug(title string) string {
 	// Convert to lowercase
 	slug := strings.ToLower(title)
