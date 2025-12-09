@@ -11,9 +11,11 @@ function AddQuote() {
     const { token, logout } = useAuth();
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        if (!token) navigate('/login');
-    }, [token, navigate]);
+        console.log("Add Quote check :- ", token)
+        if (token == "EMPTY") { navigate('/login') };
+    }, [token]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

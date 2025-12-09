@@ -10,5 +10,5 @@ An App to Store and show user's quotes and mail it to them, once in the morning.
 - Postgres
 
 ## UI 
-- React + Redux + TailwindCSS
+- React + Redux + TailwindCSS + Bun JS 🔥
 

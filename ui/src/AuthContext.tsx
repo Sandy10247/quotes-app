@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import * as util from './util';
 
 interface AuthContextType {
@@ -11,6 +11,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [token, setToken] = useState<string | null>(null);
+
 
     const login = (newToken: string) => {
         // set Auth Context variable
@@ -30,11 +31,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // check local storage for token on initial load
     React.useEffect(() => {
+
         // use util function to get token from local storage
         const storeToken = util.getAuthToken()
         if (storeToken) {
             setToken(storeToken);
+            // navigate to "Add-Quote" since the user is logged in
+        } else {
+            setToken("EMPTY");
         }
+
+        console.log("Auth Context load :- ", token)
     }, []);
 
     return (

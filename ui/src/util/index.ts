@@ -12,12 +12,13 @@ axiosInstance.interceptors.request.use(
     function (config) {
         // Add an authorization token to the request header
         const token = getAuthToken();
-        if (token) {
+        if (token && token !== "EMPTY") {
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
     function (error) {
+        console.log("error :- ", error)
         // Handle request errors
         return Promise.reject(error);
     }
@@ -28,7 +29,7 @@ export const setAuthToken = (token: string | null): void => {
     if (token) {
         localStorage.setItem('authToken', token);
     } else {
-        localStorage.removeItem('authToken');
+        localStorage.setItem('authToken', "EMPTY");
     }
 };
 
