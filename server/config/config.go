@@ -26,6 +26,13 @@ type Config struct {
 	ServerAddress     string `mapstructure:"ServerAddress"`
 	TokenHourLifespan string `mapstructure:"TOKEN_HOUR_LIFESPAN"`
 	// Add other configuration fields as needed
+
+	GmailPassword      string `mapstructure:"gmail_password"`
+	GmailSmtpHost      string `mapstructure:"gmail_smtp_host"`
+	GmailSmtpPort      int    `mapstructure:"gmail_smtp_port"`
+	GmailSenderEmail   string `mapstructure:"gmail_sender_email"`
+	GmailReceiverEmail string `mapstructure:"gmail_receiver_email"`
+	GmailSubject       string `mapstructure:"gmail_subject"`
 }
 
 func (c *Config) DSN() string {

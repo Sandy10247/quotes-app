@@ -1,0 +1,73 @@
+{{define "home"}}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Styles for the page -->
+    <style>
+        .quote {
+            border-radius: 0.5rem;
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            background: rgba(231, 3, 3, 0.15);
+            box-shadow: 0 4px 24px rgba(105, 60, 60, 0.12);
+            text-decoration: none;
+            padding: 0.5rem;
+        }
+
+        .quote-text {
+            margin: 0;
+            font-style: italic;
+            font-size: 1.5rem;
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .quote-author {
+            align-self: flex-end;
+            text-align: end;
+            font-style: bold;
+            font-weight: 1rem;
+            margin-right: 10px;
+        }
+
+        .quote_1 {
+            background-color: #4285f4;
+            color: white;
+        }
+
+        .quote_2 {
+            background-color: #EA4335;
+            color: white;
+        }
+
+        .quote_3 {
+            background-color: #FBBC04;
+            color: #202124;
+        }
+
+        .quote_4 {
+            background-color: #34A853;
+            color: #202124;
+        }
+
+        .quote_5 {
+            background-color: #202124;
+            color: white;
+            ;
+        }
+
+        .quote_6 {
+            background-color: #E37400;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    {{ template "quotes" . }}
+</body>
+
+</html>
+{{end}}

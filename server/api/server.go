@@ -41,6 +41,9 @@ func (s *Server) Router() *gin.Engine {
 
 // setupRoutes sets up the API routes for the server.
 func (s *Server) setupRoutes() {
+	// Configure CORS middleware
+	s.router.Use(CORSMiddleware())
+
 	// Serve frontend static files
 	s.router.Use(static.Serve("/", static.LocalFile("dist", true)))
 
@@ -69,6 +72,8 @@ func (s *Server) setupRoutes() {
 		quotesG.POST("/:id", s.updateQuote)
 		// Delete Quote
 		quotesG.DELETE("/:id", s.deleteQuote)
+		// Send Mail
+		quotesG.GET("/send-mail", s.sendMail)
 
 	}
 }

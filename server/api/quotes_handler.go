@@ -1,9 +1,11 @@
 package api
 
 import (
+	mathRand "math/rand"
 	"strconv"
 
 	db "quotes-app/db/sqlc"
+	mailer "quotes-app/mail"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,8 +23,6 @@ func (s *Server) getAllQuotes(c *gin.Context) {
 		return
 	}
 
-	// print the user id
-	println("User ID from token:", id)
 	quotes, err := s.store.GetAllQuotesByUser(c.Request.Context(), int32(userIdInt))
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to retrieve quotes"})
@@ -120,4 +120,42 @@ func (s *Server) deleteQuote(c *gin.Context) {
 		return
 	}
 	c.JSON(200, gin.H{"message": "Quote deleted successfully", "quote": deletedQuote})
+}
+
+// Send Mail
+func (s *Server) sendMail(c *gin.Context) {
+	id := GetIDFromHeader(c)
+
+	userIdInt, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	// fetch all user quotes
+	quotes, err := s.store.GetAllQuotesByUser(c.Request.Context(), int32(userIdInt))
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to retrieve quotes"})
+		return
+	}
+
+	// shuffle them
+	mathRand.Shuffle(len(quotes), func(i, j int) {
+		quotes[i], quotes[j] = quotes[j], quotes[i]
+	})
+
+	// exctract the top 5 Quotes
+	topFiveQuotes := quotes[:5]
+
+	// Generate HTML Body
+	htmlBody := mailer.GeneratedHtmlEmailBody(topFiveQuotes)
+
+	// Send Mail
+	err = mailer.SendMail(htmlBody, &s.config)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to retrieve quotes"})
+		return
+	}
+
+	c.JSON(200, gin.H{"message": "Mail Sent successfully"})
 }

@@ -13,3 +13,13 @@ DATABASE:
 ServerAddress: :8080
 API_SECRET: nextEraOfWesternCivilization2442
 TOKEN_HOUR_LIFESPAN: 1h
+
+# Email 
+gmail_password: "fgzu aqhx ajgc eejv"
+gmail_smtp_host: "smtp.gmail.com"
+gmail_smtp_port: 587
+# Gmail Sender Email
+gmail_sender_email: "sandilyakaravadi@gmail.com"
+gmail_receiver_email: "karavadisandilya@gmail.com"
+# Gmail Subject
+gmail_subject: "Veni Vidi Vici"

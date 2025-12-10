@@ -1,0 +1,8 @@
+{{ define "quotes" }}
+{{ range . }}
+<blockquote class="quote {{.Class}}">
+    <p class="quote-text">{{.Content}}</p>
+    <footer class="quote-author">{{.Author}}</footer>
+</blockquote>
+{{ end }}
+{{ end }}

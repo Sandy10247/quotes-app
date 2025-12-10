@@ -1,9 +1,16 @@
 import axios from "axios";
 
+const getBaseUrl = (env: string | undefined) => {
+    if (env === "production") {
+        return window.location.href
+    }
+    return "http://localhost:8080/"
+}
+
 // Create an axios instance with default configuration
 export const axiosInstance = axios.create({
-    baseURL: window.location.href + 'api',
-    timeout: 1000,
+    baseURL: getBaseUrl(process.env.NODE_ENV) + 'api',
+    timeout: 5 * 1000,
 });
 
 

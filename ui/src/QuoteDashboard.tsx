@@ -23,6 +23,16 @@ function Dashboard() {
     const { token, logout } = useAuth();
     const navigate = useNavigate();
 
+    const handleSendMail = async () => {
+        try {
+            await util.axiosInstance.get('/quotes/send-mail',);
+            setSuccess('Email sent successfully!');
+        } catch (err) {
+            setError('Failed to send email');
+            console.error(err);
+        }
+    };
+
     const fetchQuotes = async () => {
         try {
             const response = await util.axiosInstance.get('/quotes/all');
@@ -127,12 +137,20 @@ function Dashboard() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-4xl font-bold text-gray-900">Quote Dashboard</h1>
-                    <button
-                        onClick={handleLogout}
-                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-                    >
-                        Logout
-                    </button>
+                    <div className="space-x-4">
+                        <button
+                            onClick={handleSendMail}
+                            className="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-purple-700 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
+                        >
+                            Send Mail
+                        </button>
+                        <button
+                            onClick={handleLogout}
+                            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
 
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
