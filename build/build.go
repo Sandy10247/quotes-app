@@ -53,7 +53,12 @@ func main() {
 		panic(err)
 	}
 
+	env := os.Getenv("env")
+	fmt.Println("env :- ", env)
 	imageName := "quotes-app-server"
+	if env == "prod" {
+		imageName = "us-central1-docker.pkg.dev/sandilyaphanikumar/frictionxyz/quotes-app-prod"
+	}
 
 	// This is a placeholder for the main function.
 	// The actual implementation will depend on the specific requirements of the build process.
@@ -77,7 +82,15 @@ func main() {
 		"docker-build": fmt.Sprintf("docker build -t %v -f %v %v  ", imageName, absPathDockerFile, absPath),
 		"docker-tag":   fmt.Sprintf("docker tag %v:latest %v:latest", imageName, imageName),
 		"docker-list":  fmt.Sprintf("docker images | grep %v", imageName),
-		"dcoker-run":   fmt.Sprintf("docker run -p 8080:8080 -e DB_HOST=docker.for.mac.host.internal %v:latest", imageName),
+		"docker-run":   fmt.Sprintf("docker run -p 8080:8080 -e DB_HOST=docker.for.mac.host.internal %v:latest", imageName),
+	}
+
+	if env == "prod" {
+		tasksCmds["docker-build"] = fmt.Sprintf("docker build -t %v -f %v %v --platform linux/amd64  ", imageName, absPathDockerFile, absPath)
+		tasksCmds["docker-push"] = fmt.Sprintf("docker push %v:latest", imageName)
+
+		// remove run Command
+		delete(tasksCmds, "docker-run")
 	}
 
 	// Execute each task in the build process.

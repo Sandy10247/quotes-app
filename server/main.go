@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -37,6 +38,15 @@ func main() {
 	// Start the server
 	server := api.NewServer(config, store)
 
+	envPort := os.Getenv("PORT")
+	if envPort != "" && envPort != strconv.Itoa(config.Port) {
+
+		p, err := strconv.Atoi(envPort)
+		if err != nil {
+			log.Fatalf("port number conversion error : %s\n", err)
+		}
+		config.Port = p
+	}
 	addr := fmt.Sprintf(":%d", config.Port)
 	// add graceful shutdown
 	srv := &http.Server{
@@ -49,8 +59,6 @@ func main() {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
-
-	fmt.Printf("Server is running at %s 🔥\n", addr)
 
 	// Wait for interrupt signal to gracefully shutdown the server with
 	// a timeout of 5 seconds.

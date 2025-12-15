@@ -2,6 +2,15 @@
 
 PORT: 8080
 
+
+# DATABASE:
+#   HOST: 34.93.109.204
+#   PORT: 5432
+#   USER: quotes-app
+#   PASSWORD: Samaritan314#!$
+#   DB: test
+#   SSLMode: require
+
 DATABASE:
   HOST: localhost
   PORT: 5432
@@ -20,6 +29,6 @@ gmail_smtp_host: "smtp.gmail.com"
 gmail_smtp_port: 587
 # Gmail Sender Email
 gmail_sender_email: "sandilyakaravadi@gmail.com"
-gmail_receiver_email: "karavadisandilya@gmail.com"
+gmail_receiver_email: "sandilyakaravadi@gmail.com"
 # Gmail Subject
 gmail_subject: "Veni Vidi Vici"

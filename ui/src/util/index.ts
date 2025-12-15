@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const getBaseUrl = (env: string | undefined) => {
+
+    console.log("(process.env.NODE_ENV :- ", process.env.NODE_ENV)
+
     if (env === "production") {
         return window.location.href
     }
