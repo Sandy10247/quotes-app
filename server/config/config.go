@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -67,7 +66,5 @@ func LoadConfig(name, path string) (config Config) {
 		config.Database.Host = dbHost
 	}
 
-	// print the loaded config for debugging
-	fmt.Printf("Loaded config: %+v\n", config)
 	return
 }

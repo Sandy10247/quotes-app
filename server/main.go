@@ -47,10 +47,10 @@ func main() {
 		}
 		config.Port = p
 	}
-	addr := fmt.Sprintf(":%d", config.Port)
+
 	// add graceful shutdown
 	srv := &http.Server{
-		Addr:    addr,
+		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: server.Router(),
 	}
 
